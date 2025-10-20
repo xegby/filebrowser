@@ -459,7 +459,7 @@ const loadReadme = async () => {
   }
 
   try {
-    const resource = await api.fetch(readmeItem.path);
+    const resource = await api.fetch(readmeItem.url);
 
     if (requestId !== readmeRequestId.value) {
       return;
@@ -469,7 +469,7 @@ const loadReadme = async () => {
       return;
     }
 
-    // Render the README markdown into sanitized HTML for the preview.
+    // Render the README markdown fetched from the file URL into sanitized HTML for the preview.
     readmeHtml.value = DOMPurify.sanitize(await marked(resource.content));
     showReadme.value = true;
   } catch (error) {

@@ -228,6 +228,7 @@
     "shareManagement": "Freigaben verwalten",
     "shareDeleted": "Freigabe gelöscht!",
     "singleClick": "Einfacher Klick zum Öffnen von Dateien und Ordnern",
+    "readmePreview": "Vorschau von Readme.md in der Verzeichnisliste",
     "themes": {
       "default": "Systemstandard",
       "dark": "Dunkel",

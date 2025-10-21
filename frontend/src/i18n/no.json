@@ -228,6 +228,7 @@
     "shareManagement": "Del Ledelse",
     "shareDeleted": "Delte ting slettet!",
     "singleClick": "Bruk enkeltklikk for å åpne filer og mapper",
+    "readmePreview": "Forhåndsvis Readme.md i kataloglisten",
     "themes": {
       "default": "Systemstandard",
       "dark": "Mørk",

@@ -228,6 +228,7 @@
     "shareManagement": "Správa sdílení",
     "shareDeleted": "Sdílení bylo smazáno!",
     "singleClick": "Použít jediné kliknutí pro otevření souborů a adresářů",
+    "readmePreview": "Náhled souboru Readme.md ve výpisu adresáře",
     "themes": {
       "default": "Systémové výchozí",
       "dark": "Tmavý",

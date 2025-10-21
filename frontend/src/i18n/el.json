@@ -228,6 +228,7 @@
     "shareManagement": "Διαχείριση κοινοποίησης",
     "shareDeleted": "Η κοινοποίηση διαγράφηκε!",
     "singleClick": "Χρήση μονού κλικ για να ανοίξετε αρχεία και φακέλους",
+    "readmePreview": "Προεπισκόπηση του Readme.md στη λίστα καταλόγου",
     "themes": {
       "default": "System default",
       "dark": "Σκοτεινό",

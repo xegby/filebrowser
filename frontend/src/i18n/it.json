@@ -228,6 +228,7 @@
     "shareManagement": "Gestione delle condivisioni",
     "shareDeleted": "Percorso condiviso eliminato!",
     "singleClick": "Usa un singolo click per aprire file e cartelle",
+    "readmePreview": "Anteprima di Readme.md nell'elenco delle directory",
     "themes": {
       "default": "Impostazione predefinita del sistema",
       "dark": "Scuro",

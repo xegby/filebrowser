@@ -19,6 +19,10 @@
             <input type="checkbox" name="dateFormat" v-model="dateFormat" />
             {{ t("settings.setDateFormat") }}
           </p>
+          <p>
+            <input type="checkbox" name="readmePreview" v-model="readmePreview" />
+            {{ t("settings.readmePreview") }}
+          </p>
           <h3>{{ t("settings.language") }}</h3>
           <languages
             class="input input--block"
@@ -107,6 +111,7 @@ const singleClick = ref<boolean>(false);
 const dateFormat = ref<boolean>(false);
 const locale = ref<string>("");
 const aceEditorTheme = ref<string>("");
+const readmePreview = ref<boolean>(false);
 
 const passwordClass = computed(() => {
   const baseClass = "input input--block";
@@ -130,6 +135,7 @@ onMounted(async () => {
   singleClick.value = authStore.user.singleClick;
   dateFormat.value = authStore.user.dateFormat;
   aceEditorTheme.value = authStore.user.aceEditorTheme;
+  readmePreview.value = authStore.user.readmePreview ?? false;
   layoutStore.loading = false;
   return true;
 });
@@ -174,6 +180,7 @@ const updateSettings = async (event: Event) => {
       singleClick: singleClick.value,
       dateFormat: dateFormat.value,
       aceEditorTheme: aceEditorTheme.value,
+      readmePreview: readmePreview.value,
     };
 
     await api.update(data, [
@@ -182,6 +189,7 @@ const updateSettings = async (event: Event) => {
       "singleClick",
       "dateFormat",
       "aceEditorTheme",
+      "readmePreview",
     ]);
     authStore.updateUser(data);
     $showSuccess(t("settings.settingsUpdated"));

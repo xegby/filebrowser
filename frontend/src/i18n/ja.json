@@ -228,6 +228,7 @@
     "shareManagement": "共有の管理",
     "shareDeleted": "ファイルの共有を削除しました！",
     "singleClick": "ダブルクリックの代わりにクリックでファイルやフォルダーを開く",
+    "readmePreview": "ディレクトリ一覧で Readme.md をプレビュー",
     "themes": {
       "default": "System default",
       "dark": "ダーク",

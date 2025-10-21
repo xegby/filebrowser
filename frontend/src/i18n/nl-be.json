@@ -228,6 +228,7 @@
     "shareManagement": "Share Management",
     "shareDeleted": "Share deleted!",
     "singleClick": "Use single clicks to open files and directories",
+    "readmePreview": "Voorbeeld van Readme.md in de mappenlijst",
     "themes": {
       "default": "System default",
       "dark": "Dark",

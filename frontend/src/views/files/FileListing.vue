@@ -340,6 +340,10 @@ const readmeHtml = ref("");
 const showReadme = ref(false);
 const readmeRequestId = ref(0);
 
+const shouldPreviewReadme = computed(
+  () => authStore.user?.readmePreview ?? false
+);
+
 const nameSorted = computed(() =>
   fileStore.req ? fileStore.req.sorting.by === "name" : false
 );
@@ -442,6 +446,11 @@ const loadReadme = async () => {
   readmeHtml.value = "";
   showReadme.value = false;
 
+  // Skip the preview entirely when the user has disabled it.
+  if (!shouldPreviewReadme.value) {
+    return;
+  }
+
   const current = fileStore.req;
 
   // README is only available when the current entry is a directory.
@@ -499,6 +508,10 @@ watch(req, () => {
       fillWindow(true);
     }
   });
+});
+
+watch(shouldPreviewReadme, () => {
+  loadReadme();
 });
 
 onMounted(() => {

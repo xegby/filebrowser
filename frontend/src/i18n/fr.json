@@ -228,6 +228,7 @@
     "shareManagement": "Gestion des partages",
     "shareDeleted": "Partage supprimé !",
     "singleClick": "Utiliser un simple clic pour ouvrir les fichiers et les dossiers",
+    "readmePreview": "Aperçu du Readme.md dans la liste du répertoire",
     "themes": {
       "default": "Par défaut du système",
       "dark": "Sombre",

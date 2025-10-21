@@ -230,10 +230,11 @@ func (a *HookAuth) GetUser(d *users.User) *users.User {
 			Asc: a.Fields.GetBoolean("user.sorting.asc", d.Sorting.Asc),
 			By:  a.Fields.GetString("user.sorting.by", d.Sorting.By),
 		},
-		Commands:     a.Fields.GetArray("user.commands", d.Commands),
-		HideDotfiles: a.Fields.GetBoolean("user.hideDotfiles", d.HideDotfiles),
-		Perm:         perms,
-		LockPassword: true,
+		Commands:      a.Fields.GetArray("user.commands", d.Commands),
+		HideDotfiles:  a.Fields.GetBoolean("user.hideDotfiles", d.HideDotfiles),
+		ReadmePreview: a.Fields.GetBoolean("user.readmePreview", d.ReadmePreview),
+		Perm:          perms,
+		LockPassword:  true,
 	}
 
 	return &user
@@ -255,6 +256,7 @@ var validHookFields = []string{
 	"user.sorting.asc",
 	"user.commands",
 	"user.hideDotfiles",
+	"user.readmePreview",
 	"user.perm.admin",
 	"user.perm.execute",
 	"user.perm.create",

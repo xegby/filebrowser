@@ -9,6 +9,7 @@ interface IUser {
   rules: IRule[];
   lockPassword: boolean;
   hideDotfiles: boolean;
+  readmePreview: boolean;
   singleClick: boolean;
   dateFormat: boolean;
   viewMode: ViewModeType;
@@ -29,6 +30,7 @@ interface IUserForm {
   rules?: IRule[];
   lockPassword?: boolean;
   hideDotfiles?: boolean;
+  readmePreview?: boolean;
   singleClick?: boolean;
   dateFormat?: boolean;
 }

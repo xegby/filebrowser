@@ -34,6 +34,7 @@ type User struct {
 	Fs             afero.Fs      `json:"-" yaml:"-"`
 	Rules          []rules.Rule  `json:"rules"`
 	HideDotfiles   bool          `json:"hideDotfiles"`
+	ReadmePreview  bool          `json:"readmePreview"`
 	DateFormat     bool          `json:"dateFormat"`
 	AceEditorTheme string        `json:"aceEditorTheme"`
 }

@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { baseURL, noAuth } from "./constants";
 import { StatusError } from "@/api/utils";
 import { setSafeTimeout } from "@/api/utils";
+import { users as apiUsers } from "@/api";
 
 export function parseToken(token: string) {
   // falsy or malformed jwt will throw InvalidTokenError
@@ -17,6 +18,15 @@ export function parseToken(token: string) {
   const authStore = useAuthStore();
   authStore.jwt = token;
   authStore.setUser(data.user);
+
+  // Fetch full user profile (includes fields not present in JWT)
+  // Ignore errors to avoid blocking login/renew flows.
+  if (data.user && typeof data.user.id === "number") {
+    void apiUsers
+      .get(data.user.id)
+      .then((fullUser) => authStore.updateUser(fullUser))
+      .catch(() => void 0);
+  }
 
   if (authStore.logoutTimer) {
     clearTimeout(authStore.logoutTimer);

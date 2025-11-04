@@ -1,6 +1,7 @@
 import { watch } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { users as apiUsers } from "@/api";
+import type { IUserExtended } from "@/modules/types";
 
 // Side-effect module: refresh full user profile when JWT/user changes.
 // Keeps upstream auth.ts minimal by moving profile fetching here.
@@ -20,7 +21,7 @@ import { users as apiUsers } from "@/api";
       lastKey = key;
 
       try {
-        const fullUser = await apiUsers.get(userId);
+        const fullUser = (await apiUsers.get(userId)) as IUserExtended;
         auth.updateUser(fullUser);
       } catch {
         // ignore fetch errors to avoid disrupting auth flow
@@ -29,4 +30,3 @@ import { users as apiUsers } from "@/api";
     { immediate: true }
   );
 })();
-

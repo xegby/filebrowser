@@ -30,6 +30,7 @@ import { ref, inject, onMounted, watch } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { users as api } from '@/api';
 import { useI18n } from 'vue-i18n';
+import type { IUserExtended } from '@/modules/types';
 
 const auth = useAuthStore();
 
@@ -58,7 +59,7 @@ const enabled = ref<boolean>(false);
 watch(
   () => auth.user,
   (u) => {
-    enabled.value = u?.readmePreview ?? false;
+    enabled.value = !!(u as IUserExtended | null)?.readmePreview;
   },
   { immediate: true }
 );

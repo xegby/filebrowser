@@ -20,7 +20,6 @@ interface SettingsDefaults {
   perm: Permissions;
   commands: any[];
   hideDotfiles: boolean;
-  readmePreview: boolean;
   dateFormat: boolean;
   aceEditorTheme: string;
 }

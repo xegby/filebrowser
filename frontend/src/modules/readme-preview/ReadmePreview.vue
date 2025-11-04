@@ -13,6 +13,7 @@ import { useFileStore } from "@/stores/file";
 import { files as api } from "@/api";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
+import type { IUserExtended } from "@/modules/types";
 
 const authStore = useAuthStore();
 const fileStore = useFileStore();
@@ -21,7 +22,9 @@ const readmeHtml = ref("");
 const showReadme = ref(false);
 const readmeRequestId = ref(0);
 
-const shouldPreviewReadme = computed(() => authStore.user?.readmePreview ?? false);
+const shouldPreviewReadme = computed(() =>
+  Boolean((authStore.user as IUserExtended | null)?.readmePreview)
+);
 
 const loadReadme = async () => {
   // Ensure that only the latest request updates the preview.
@@ -80,4 +83,3 @@ onMounted(() => {
 <style scoped>
 /* Inherit any existing styles via classes already used by FileListing */
 </style>
-

@@ -270,15 +270,7 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="showReadme"
-        id="readme-preview"
-        class="md_preview"
-        aria-labelledby="readme-title"
-      >
-        <h2 id="readme-title">README.md</h2>
-        <div v-html="readmeHtml"></div>
-      </div>
+      <ExtensionsMount target="filelisting:after" />
     </template>
   </div>
 </template>
@@ -295,7 +287,6 @@ import * as upload from "@/utils/upload";
 import css from "@/utils/css";
 import { throttle } from "lodash-es";
 import { Base64 } from "js-base64";
-import DOMPurify from "dompurify";
 
 import HeaderBar from "@/components/header/HeaderBar.vue";
 import Action from "@/components/header/Action.vue";
@@ -314,7 +305,6 @@ import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { storeToRefs } from "pinia";
 import { removePrefix } from "@/api/utils";
-import { marked } from "marked";
 
 const showLimit = ref<number>(50);
 const columnWidth = ref<number>(280);
@@ -336,13 +326,6 @@ const route = useRoute();
 const { t } = useI18n();
 
 const listing = ref<HTMLElement | null>(null);
-const readmeHtml = ref("");
-const showReadme = ref(false);
-const readmeRequestId = ref(0);
-
-const shouldPreviewReadme = computed(
-  () => authStore.user?.readmePreview ?? false
-);
 
 const nameSorted = computed(() =>
   fileStore.req ? fileStore.req.sorting.by === "name" : false
@@ -437,65 +420,10 @@ const isMobile = computed(() => {
   return width.value <= 736;
 });
 
-const loadReadme = async () => {
-  // Ensure that only the latest request updates the preview.
-  readmeRequestId.value += 1;
-  const requestId = readmeRequestId.value;
-
-  // Reset the previous preview before requesting new data.
-  readmeHtml.value = "";
-  showReadme.value = false;
-
-  // Skip the preview entirely when the user has disabled it.
-  if (!shouldPreviewReadme.value) {
-    return;
-  }
-
-  const current = fileStore.req;
-
-  // README is only available when the current entry is a directory.
-  if (!current?.isDir) {
-    return;
-  }
-
-  // Locate the README file in the current directory listing.
-  const readmeItem = current.items.find(
-    (item) => !item.isDir && item.name.toLowerCase() === "readme.md"
-  );
-
-  if (!readmeItem) {
-    return;
-  }
-
-  try {
-    const resource = await api.fetch(readmeItem.url);
-
-    if (requestId !== readmeRequestId.value) {
-      return;
-    }
-
-    if (!resource.content) {
-      return;
-    }
-
-    // Render the README markdown fetched from the file URL into sanitized HTML for the preview.
-    readmeHtml.value = DOMPurify.sanitize(await marked(resource.content));
-    showReadme.value = true;
-  } catch (error) {
-    if (requestId !== readmeRequestId.value) {
-      return;
-    }
-
-    console.error("Failed to load README.md", error);
-  }
-};
 
 watch(req, () => {
   // Reset the show value
   showLimit.value = 50;
-
-  // Refresh the README preview after each navigation request.
-  loadReadme();
 
   nextTick(() => {
     // Ensures that the listing is displayed
@@ -510,10 +438,6 @@ watch(req, () => {
   });
 });
 
-watch(shouldPreviewReadme, () => {
-  loadReadme();
-});
-
 onMounted(() => {
   // Check the columns size for the first time.
   colunmsResize();
@@ -526,9 +450,6 @@ onMounted(() => {
     // Fill and fit the window with listing items
     fillWindow(true);
   }
-
-  // Load the README preview for the initial directory listing.
-  loadReadme();
 
   // Add the needed event listeners to the window and document.
   window.addEventListener("keydown", keyEvent);

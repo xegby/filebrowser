@@ -13,6 +13,7 @@ import router from "@/router";
 import i18n, { isRtl } from "@/i18n";
 import App from "@/App.vue";
 import CustomToast from "@/components/CustomToast.vue";
+import ModulesPlugin from "@/modules";
 
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -43,6 +44,7 @@ app.use(vfm);
 app.use(i18n);
 app.use(pinia);
 app.use(router);
+app.use(ModulesPlugin);
 
 app.mixin({
   mounted() {
